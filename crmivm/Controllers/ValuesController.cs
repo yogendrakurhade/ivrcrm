@@ -15,19 +15,18 @@ namespace crmivm.Controllers
     {
         private string connectionstring = ConfigurationManager.AppSettings["EPConnectionString"].ToString();
         // GET api/values
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        //public IEnumerable<string> Get()
+        //{
+        //    return new string[] { "value1", "value2" };
+        //}
 
-        // GET api/values/5
-        public string Get(string mob_no)
-        {
-            mob_no = dbCALL(mob_no);
-            return  mob_no;
-        }
+        //// GET api/values/5
+        //public string Get(string mob_no)
+        //{
+        //    return  mob_no;
+        //}
 
-        // POST api/values
+        // POST api/values/ivrcrm?mob_no=
         [HttpPost]
         [ActionName("ivrcrm")]
         public IEnumerable<string> Post([FromBody]string mob_no)
