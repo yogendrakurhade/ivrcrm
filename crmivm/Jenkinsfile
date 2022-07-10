@@ -1,16 +1,33 @@
+CODE_CHANGES = getGitChanges()
+
 pipeline {
   
   agent only
   
+  environment {
+    NEW_VERSION = '1.3.0'
+  }
+  
   stages {
     stage("build"){
+      when {
+        expression {
+          BRANCH_NAME == 'dev' || BRANCH_NAME == 'master' && CODE_CHANGES == true
+        }
+      }
       steps{
         echo 'building the application...'
+        echo "Building version ${NEW_VERSION}"
         sh 'npm install'
       }
     }
     
     stage("test"){
+      when {
+        expression {
+          BRANCH_NAME == 'dev' || BRANCH_NAME == 'master'
+        }
+      }
       steps{
         echo 'testing the application...'
       }
@@ -19,6 +36,18 @@ pipeline {
     stage("deploy"){
       steps{
         echo 'deploying the application...'
+      }
+    }
+    
+    post {
+      always {
+        //
+      }
+      success {
+        //
+      }
+      failure {
+        //
       }
     }
   }
